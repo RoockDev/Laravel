@@ -12,9 +12,7 @@ class MiController extends Controller
     {
         $tamano = $request->input('tamano');
 
-        if (!($tamano % 2 == 0)) {
-            return response()->json(['error' => 'el tamaño tiene que ser un numero par']);
-        }
+
 
         //con insertGetId insertas y recuperas el id ya que funciona con las tablas que tienen autoincremente
         $partidaId = DB::table('partida')->insertGetId([
@@ -55,9 +53,7 @@ class MiController extends Controller
     {
         try {
             $partida = DB::table('partida')->where('id', $id)->first();
-            if (!$partida) {
-                return response()->json(['error' => 'partida no encontrada']);
-            }
+            
             $casillas = DB::table('casilla')
                 ->where('partida_id', $id)
                 ->orderBy('posicion')
@@ -85,10 +81,7 @@ class MiController extends Controller
     public function mostrarSolucion($id){
         try {
             $partida = DB::table('partida')->where('id',$id)->first();
-            if (!$partida) {
-                return response()->json(['error' => 'partida no encontrada']);
-            }
-
+            
             $casillas = DB::table('casilla')
             ->where('partida_id',$id)
             ->orderBy('posicion')
@@ -122,20 +115,6 @@ class MiController extends Controller
             $posicion1 = $request->input('posicion1');
             $posicion2 = $request->input('posicion2');
 
-            if ($posicion1 === null || $posicion2 === null) {
-                return response()->json(['error' => 'se requiren ambas posiciones']);
-            }
-
-            if ($posicion1 === $posicion2) {
-                return response()->json(['error' => 'debe introducir 2 casillas distintas']);
-            }
-
-            //comprobamos que la partida existe
-            $partida = DB::table('partida')->where('id', $partidaId)->first();
-            if (!$partida) {
-                return response()->json(['error' => 'la partida no existe']);
-            }
-
             //obtenemos las dos casillas con whereIn que es una maravilla
             $casillas = DB::table('casilla')
                 ->where('partida_id', $partidaId)
@@ -143,9 +122,7 @@ class MiController extends Controller
                 ->where('estado', 'oculta')
                 ->get();
 
-            if ($casillas->count() != 2) {
-                return response()->json(['error' => 'una o ambas casillas han sido ya resueltas']);
-            }
+            
 
             $casilla1 = $casillas->where('posicion', $posicion1)->first();
             $casilla2 = $casillas->where('posicion', $posicion2)->first();
