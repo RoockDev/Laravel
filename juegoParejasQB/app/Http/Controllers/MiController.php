@@ -109,11 +109,11 @@ class MiController extends Controller
 
     }
 
-    public function compararCasillas(Request $request, $partidaId)
+    public function compararCasillas(Request $request, $partidaId, $position1, $position2)
     {
         try {
-            $posicion1 = $request->input('posicion1');
-            $posicion2 = $request->input('posicion2');
+            $posicion1 = $position1;
+            $posicion2 = $position2;
 
             //obtenemos las dos casillas con whereIn que es una maravilla
             $casillas = DB::table('casilla')

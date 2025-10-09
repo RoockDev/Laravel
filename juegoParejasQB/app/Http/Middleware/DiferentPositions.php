@@ -15,8 +15,8 @@ class DiferentPositions
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $posicion1 = $request->route('posicion1');
-        $posicion2 = $request->route('posicion2');
+        $posicion1 = $request->route('position1');
+        $posicion2 = $request->route('position2');
          if ($posicion1 === $posicion2) {
                 return response()->json(['error' => 'debe introducir 2 casillas distintas']);
             }

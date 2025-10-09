@@ -14,10 +14,11 @@ class CountTiles
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $partidaId): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        $posicion1 = $request->input('posicion1');
-        $posicion2 = $request->input('posicion2');
+        $partidaId = $request->route('id');
+        $posicion1 = $request->route('position1');
+        $posicion2 = $request->route('position2');
         $casillas = DB::table('casilla')
             ->where('partida_id', $partidaId)
             ->whereIn('posicion', [$posicion1, $posicion2])

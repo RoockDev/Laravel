@@ -14,8 +14,9 @@ class GameFound
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next,$id): Response
+    public function handle(Request $request, Closure $next): Response
     {
+        $id = $request->route('id');
         $partida = DB::table('partida')->where('id', $id)->first();
         if (!$partida) {
                 return response()->json(['error' => 'partida no encontrada']);

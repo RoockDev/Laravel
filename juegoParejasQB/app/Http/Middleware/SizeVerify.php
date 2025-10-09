@@ -13,7 +13,7 @@ class SizeVerify
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function sizeVerify(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): Response
     {
         $tamano = $request->input('tamano');
                 if (!($tamano % 2 == 0)) {
